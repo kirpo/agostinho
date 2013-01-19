@@ -1,0 +1,484 @@
+<!--
+    agostinho carrara 0.11
+    http://agostinhocarrara.tumblr.com/
+-->
+
+<html>
+
+<head>
+
+    <title>{Title}{block:PostTitle}: {PostTitle}{/block:PostTitle}</title>
+
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    
+    {block:Description}
+        <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
+    
+    <meta name="font:Font" content="Helvetica Neue"/>
+    
+    <meta name="color:Background" content="#fcfcfc" />
+    <meta name="color:Title" content="#5b5e5b" />
+    <meta name="color:Description" content="#b3b4b4" />
+    <meta name="color:Texto" content="#000" />
+    
+    <meta name="color:Link Color" content="#000" />
+    <meta name="color:Link Background Color" content="#fcfcfc" />
+    <meta name="color:Link Hover Color" content="#000" />
+    <meta name="color:Link Hover Background Color" content="#e4e2e2" />
+    
+    <meta name="if:Underline Links" content="0" />
+    <meta name="if:Tweet This Button" content="1" />
+    <meta name="if:Show Tags" content="1" />
+    <meta name="if:Bold Links" content="1" />
+    <meta name="if:Show Notes on Home" content="1" />
+    <meta name="if:Show Notes on Permalink Page" content="1">
+    <meta name="if:I Want Big Photos" content="1">
+    
+    <meta name="text:Title size" content="80"/>
+    <meta name="text:Max Width" content="600"/>
+    <meta name="text:Disqus username" content=""/>
+    <meta name="text:Tweet Button Text" content="tweet this"/>
+    <meta name="text:Tweet Content" content="check this out"/>
+    
+    
+    <style type="text/css">
+    
+    body {
+        margin-top: 40px;
+        font: 14px {font:Font};
+        background-color: {color:Background};
+        text-align: justify;
+    }
+    
+    .postt a,.link a,.eof a {
+        {block:IfBoldLinks}
+            font-weight: bold;
+        {/block:IfBoldLinks}
+        text-decoration: none;
+        color: {color:Link Color};
+        background-color: {color:Link Background Color};
+        padding: 1px;
+    }
+    .postt a:hover,.link a:hover,.eof a:hover {
+        {block:IfUnderlineLinks}
+            text-decoration: underline;
+        {/block:IfUnderlineLinks}
+        color: {color:Link Hover Color};
+        background-color: {color:Link Hover Background Color};
+        padding: 1px;
+    }
+    
+    img {
+        max-width: 100%;   
+    }
+    
+    h1 {
+        font-size: {text:Title Size}px;
+        text-align: left;
+        color: {color:Title};
+        line-height: 90%;        
+        margin: 0px;
+    }
+    h1 a { color: {color:Title}; text-decoration: none; }
+    
+    
+    .foot { color:{color:Description}; font-size: 11px; display: inline; }
+    .foot li { display: inline; list-style: none; margin-right: 10px; }
+    .foot a { text-decoration: none; color:{color:Description}; }
+
+    .eof ul { padding: 0px; margin: 0px; }
+    .eof li { display: inline; margin-right: 8px; }
+
+    .title,.link {
+        margin: 0px;
+        font-size: 22px;
+        font-weight: bold;
+        color: {color:Title};
+    }
+    .title a { color: {color:Title}; text-decoration: none; }
+    .title a:hover {
+        color: {color:Title};
+        {block:IfUnderlineLinks}
+            text-decoration: underline;
+        {/block:IfUnderlineLinks}
+    }
+    
+    .postt {
+        margin: 0px;
+        font-size: 13px;
+        color: {color:Texto};
+        text-align: justify;
+        line-height: 18px;
+    }
+    
+    #texto { font-size: 13px; }
+    
+    #quote-short, #quote-medium, #quote-long { margin: 0px 0px 20px 80px; text-align: justify; line-height: 28px; }
+    #quote-short, #quote-medium { font-size: 24px; }
+    #quote-long { font-size: 18px; }
+
+
+    #description {
+        color: {color:Description};
+        font-size: 12px;
+    }
+    
+
+    h1,#description,.postt,.foot,.eof {
+        width: {text:Max Width}px; margin: 0px auto;
+    }
+    
+    .eof { margin-top: 8px; padding-top: 4px; border-top: solid 1px #ccc; font-size: 11px; }
+    
+    .spaceplease { margin-bottom: 40px; }
+    
+    
+    
+    
+
+
+
+
+
+
+
+            ol.notes {
+                font-size: 11px;
+                padding: 0px;
+                margin: 25px 0px;
+                list-style-type: none;
+                border-bottom: solid 1px #ccc;
+            }
+
+            ol.notes li.note {
+                border-top: solid 1px #ccc;
+                padding: 10px;
+            }
+
+            ol.notes li.note img.avatar {
+                vertical-align: -4px;
+                margin-right: 10px;
+                width: 16px;
+                height: 16px;
+            }
+
+            ol.notes li.note span.action {
+                font-weight: bold;
+            }
+
+            ol.notes li.note .answer_content {
+                font-weight: normal;
+            }
+
+            ol.notes li.note blockquote {
+                border-color: #eee;
+                padding: 4px 10px;
+                margin: 10px 0px 0px 25px;
+            }
+
+            ol.notes li.note blockquote a {
+                text-decoration: none;
+            }
+
+
+
+    </style>
+    
+</head>
+
+
+<body>
+
+{block:IfTitlesize}
+    <h1><a href="/">{Title}</a></h1>
+{/block:IfTitlesize}
+
+<!-- Caso haja descrição. -->
+{block:Description}
+    <p id="description">{Description}</p>
+{/block:Description}
+    
+
+<div style="margin-bottom: 50px;"></div>
+
+<!-- Posts -->
+
+{block:Posts}
+
+<p class="spaceplease" />
+
+{block:Text}
+<div class="postt">
+    <p class="title"><a href="{Permalink}">{Title}</a></p>
+    {Body}
+</div>
+{/block:Text}
+
+
+{block:Photo}
+
+{block:IfNotIWantBigPhotos}<div class="postt">{/block:IfNotIWantBigPhotos}
+
+    {LinkOpenTag}
+    
+    <center><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" /></center>
+    
+    {LinkCloseTag}
+    
+{block:IfNotIWantBigPhotos}</div>{/block:IfNotIWantBigPhotos}
+
+
+     <div class="postt">{Caption}</div>
+    
+{/block:Photo}
+
+
+{block:Photoset}
+
+{block:IfNotIWantBigPhotos}<div class="postt">{/block:IfNotIWantBigPhotos}
+
+    <center>{Photoset-700}</center>
+
+{block:IfNotIWantBigPhotos}</div>{/block:IfNotIWantBigPhotos}
+
+    {block:Caption}<div class="postt">{Caption}</div>{/block:Caption}
+
+{/block:Photoset}
+
+{block:Quote}
+    <div class="postt">
+        <p id="quote-{Length}">{Quote}</p>
+    
+    {block:Source}
+        <p id="texto">&#8212; {Source}</p>
+    {/block:Source}
+            
+    </div>
+{/block:Quote}
+
+
+{block:Link}
+    <div class="postt">
+        <p class="link">
+            &#187; <a href="{URL}" target="{Target}">{Name}</a>
+        </p>
+        {block:Description}
+            {Description}
+        {/block:Description}
+    </div>
+{/block:Link}
+
+
+{block:Chat}
+    <div class="postt">
+        {block:Title}
+            <p class="title">{Title}</p>
+        {/block:Title}
+        
+        
+        {block:Lines}
+            <p style="margin-left:28px;">{block:Label}<b>{Label}</b> {Line}{/block:Label}</p>
+        {/block:Lines}
+    </div>
+{/block:Chat}
+
+
+{block:Audio}
+    <div class="postt">
+        {block:AlbumArt}<img src="{AlbumArtURL}" style="float: left; max-width: 250px; margin-right: 20px;" />{/block:AlbumArt}
+                
+        {block:AudioPlayer}{AudioPlayerGrey}{/block:AudioPlayer}
+        {block:AudioEmbed}{AudioEmbed-250}{/block:AudioEmbed}
+        
+        <p>
+            {block:Artist}{Artist}&nbsp;{/block:Artist}
+            {block:TrackName}<b>{TrackName}</b>{/block:TrackName}
+            {block:Album}({Album}){/block:Album}
+        
+            {block:PlayCount}
+                - {PlayCountWithLabel}
+            {/block:PlayCount}
+        </p>
+        
+        {block:Caption}<p>{Caption}</p>{/block:Caption}
+        
+    </div><div style="clear:both;" />
+{/block:Audio}
+
+
+{block:Video}
+    <div class="postt">
+        <center>{Video-500}</center>
+    
+        {VideoEmbed-700}
+        
+        {block:Caption}<p>{Caption}</p>{/block:Caption}
+    </div>
+{/block:Video}
+
+
+{block:Answer}
+    <div class="postt">
+        <img src="{AskerPortraitURL-64}" style="float:left; margin-right: 20px; max-width: 64px;" />
+    
+        <p class="title"><b>{Asker}</b>: {Question}</p>
+        
+        <p>{Answer}</p>
+    </div><div style="clear:both;" />
+{/block:Answer}
+
+
+
+    <div class="postt">
+    <p style="font-size: 11px;">
+    
+            {block:ContentSource}
+            source <a href="{SourceURL}">{SourceTitle}</a>
+        {/block:ContentSource}
+{block:RebloggedFrom}
+via <a href="{ReblogParentURL}">{ReblogParentName}</a>
+{/block:RebloggedFrom}
+</p>
+</div>
+
+
+{block:Date}<center>
+    <div class="foot">
+        <li>
+            <b><a href="{Permalink}">{DayOfMonthWithZero} {ShortMonth} {ShortYear}</a></b>
+        </li>
+        
+        {block:IfShowNotesonHome}
+        {block:NoteCount}
+            <li>{NoteCountWithLabel}</li>
+        {/block:NoteCount}
+        {/block:IfShowNotesonHome}
+
+        
+    {block:IfShowTags}
+        {block:HasTags}
+            {block:Tags}
+                <li>
+                    <a href="{TagURL}">&#35;{Tag}</a>
+                </li>
+            {/block:Tags} 
+        {/block:HasTags}
+    {/block:IfShowTags}
+        
+        
+    </div>
+</center><p class="spaceplease" />{/block:Date}
+
+
+{block:PermalinkPage}
+    <div class="postt">
+    
+    {block:IfTweetThisButton}
+    
+        {block:IfTweetButtonText}
+                <a href="http://twitter.com/?status={text:Tweet Content}+{ShortURL}">{text:Tweet Button Text}</a>
+            
+        {/block:IfTweetButtonText}
+        
+    {/block:IfTweetThisButton}
+    
+    </div>
+{/block:PermalinkPage}
+
+
+<div style="clear:both;" />
+
+{/block:Posts}
+
+
+{block:PermalinkPage}
+    <div class="postt">
+    
+    
+    <center>
+    {block:PermalinkPagination}<p>
+        {block:PreviousPost}<a href="{PreviousPost}">&#171; previous post</a>{/block:PreviousPost}
+        {block:NextPost}<a href="{NextPost}">next post &#187;</a>{/block:NextPost}
+</p>
+{/block:PermalinkPagination}
+    </center>
+
+{block:IfDisqusUsername}
+<p><script type="text/javascript">var disqus_url = "{Permalink}"; var disqus_title ="{block:PostTitle}{PostTitle}{/block:PostTitle}";</script>{block:Permalink}<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /**
+* var disqus_identifier; [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread]
+*/
+  (function() {
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://{text:Disqus Username}.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="/?ref_noscript=apupos">comments powered by Disqus.</a></noscript>
+<a href="" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+{/block:Permalink}<script type="text/javascript">
+var disqus_shortname = '{text:Disqus Username}';
+(function () {
+  var s = document.createElement('script'); s.async = true;
+  s.src = 'http://{text:Disqus Username}.disqus.com/count.js';
+  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script></p>
+{/block:IfDisqusUsername}
+
+    {block:IfShowNotesonPermalinkPage}
+        {block:PostNotes}
+            {PostNotes}
+        {/block:PostNotes}
+    {/block:IfShowNotesonPermalinkPage}
+    <p style="margin-bottom: 8px;"></p></div>
+{/block:PermalinkPage}
+
+
+
+
+{block:Pagination}
+    <div class="postt"><center>
+        {block:PreviousPage}<a href="{PreviousPage}">previous</a> ({CurrentPage} of {TotalPages}){/block:PreviousPage}
+        
+        {block:NextPage}<a href="{NextPage}">next</a>{/block:NextPage}
+    </center><br /></div>
+{/block:Pagination}
+
+<div class="eof">
+
+<img src="{PortraitURL-40}" style="float: left; margin-right: 6px;" />
+
+
+    <ul>
+        {block:AskEnabled}<li><a href="/ask" style="display: inline;">{AskLabel}</a></li{/block:AskEnabled}
+        {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+    </ul>
+    
+    {block:HasPages}
+        <ul>
+        {block:Pages}
+            <li><a href="{URL}">{Label}</a></li>
+        {/block:Pages}
+        </ul>
+    {/block:HasPages}
+    
+    <ul>
+        <li>
+            <a href="http://agostinhocarrara.tumblr.com" target="_blank">agostinho carrara</a>
+            by <a href="http://kirp.tumblr.com" target="_blank">kirp</a>
+        </li>
+        <li>(<a href="/archive">archive</a>, <a href="/random">random</a>, <a href="{RSS}">rss</a>)</li>
+    </ul>
+
+<br/>
+
+</div>
+
+<br />
+</body>
+
+</html>
